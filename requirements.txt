@@ -1,0 +1,7 @@
+instagrapi
+schedule
+requests
+python-dotenv
+moviepy  # For basic video editing/watermarking if needed
+Pillow    # Images
+yt-dlp    # Fallback for public video downloads
