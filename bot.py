@@ -1,25 +1,48 @@
 import schedule
 import time
-from utils.downloader import download_reel
-from utils.caption_generator import generate_caption
-from utils.poster import post_to_ig
-from utils.cleaner import cleanup_old_files
-import json
+import os
+import logging
+from datetime import datetime
+
+from utils.downloader import download_random_clip
+from utils.caption_generator import generate_anime_caption
+from utils.poster import post_to_instagram
+from utils.cleaner import cleanup_downloads
+
+# Setup logging
+os.makedirs("logs", exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    filename='logs/bot.log',
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 def job():
-    # Example: Fetch new content logic (replace with scraping or RSS if available)
-    # For demo: assume a list of public URLs or implement search
-    sample_url = "https://example-public-anime-clip-url"  
-    filepath = download_reel(sample_url)
-    caption = generate_caption("One Piece")
-    post_to_ig(filepath, caption)
-    # Optional: cleanup_old_files() after post
+    print(f"\n🚀 Starting post job at {datetime.now()}")
+    logging.info("Starting scheduled post job")
+    
+    filepath = download_random_clip()
+    
+    if filepath and os.path.exists(filepath):
+        caption = generate_anime_caption()
+        success = post_to_instagram(filepath, caption)
+        if success:
+            logging.info("✅ Post completed successfully")
+        else:
+            logging.error("❌ Post failed")
+    else:
+        logging.warning("⚠️ No file downloaded this cycle")
 
-# Schedule
-schedule.every(1).hours.do(job)  # Every hour
-schedule.every(20).hours.do(cleanup_old_files)  # Periodic clean
+# Scheduling
+schedule.every(1).hours.do(job)
+schedule.every(22).hours.do(cleanup_downloads)
 
-print("Bot started...")
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+print("🤖 Anime Instagram Reels Bot Started!")
+print(f"Current Time: {datetime.now()}")
+print("→ Posting every 1 hour")
+print("→ Auto cleanup every 22 hours")
+
+if __name__ == "__main__":
+    while True:
+        schedule.run_pending()
+        time.sleep(30)

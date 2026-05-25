@@ -1,11 +1,20 @@
 import os
-import shutil
 from datetime import datetime, timedelta
 
-def cleanup_old_files(directory="downloads", hours=24):
+def cleanup_downloads(directory="downloads", hours=22):
+    if not os.path.exists(directory):
+        return
     now = datetime.now()
-    for f in os.listdir(directory):
-        path = os.path.join(directory, f)
-        if os.path.getmtime(path) < (now - timedelta(hours=hours)).timestamp():
-            os.remove(path)
-    print("Cleanup done.")
+    cutoff = now - timedelta(hours=hours)
+    
+    deleted = 0
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        if os.path.isfile(filepath):
+            if datetime.fromtimestamp(os.path.getmtime(filepath)) < cutoff:
+                try:
+                    os.remove(filepath)
+                    deleted += 1
+                except:
+                    pass
+    print(f"🗑️ Cleanup completed. Deleted {deleted} old files.")
