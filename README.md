@@ -1,5 +1,4 @@
-# anime-ig-reposter-bot
-Main bot code.
+
 # ReelFlow - Open Source
 
 # Anime Instagram Reels Bot 🤖
@@ -12,7 +11,7 @@ Main bot code.
 
 ---
 
-Automated Instagram bot specialized in posting **viral anime reels** every hour.
+Automated Instagram bot specialized in posting **viral anime reels** every day.
 
 Built for anime content creators who want consistent growth with minimal effort.
 
@@ -25,7 +24,7 @@ Built for anime content creators who want consistent growth with minimal effort.
 - **⏰ Hourly Auto Posting** — Posts Reels every hour consistently
 - **🧹 Smart Storage Management** — Auto deletes old files every 22 hours
 - **🔐 Session Management** — Saves sessions to reduce ban risk
-- **☁️ Easy Deployment** — Works perfectly on Oracle Cloud, VPS, or local machine
+- **☁️ Easy Deployment** — Works perfectly on VPS, or local machine
 
 ---
 
@@ -46,6 +45,6 @@ Need help with setup or want a **fully managed hosted version** with zero mainte
 
 ---
 
-**Made for the Anime Community** ❤️
+**Made for the Anime Community** 
 
 © 2026 ReelFlow • AnimeReel AI
