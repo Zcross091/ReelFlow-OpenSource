@@ -10,14 +10,8 @@ This bot posts anime clips to Instagram using `instagrapi` and supports loading 
 
 ## ✨ Features
 **Automatic Content Downloading** — Pulls latest anime shorts from YouTube and public sources
-
 **AI-Powered Captions** — Generates engaging titles and trending hashtags
-
 **Hourly Auto Posting** — Posts Reels every hour
-
-
 **Smart Storage Management** — Auto deletes old files every 22 hours
-
 **Session Management** — Reduces ban risk with saved sessions
-
 **Easy Deployment** — Works on Oracle Cloud, VPS, or local machine
