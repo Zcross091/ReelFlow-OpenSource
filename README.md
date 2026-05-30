@@ -45,6 +45,6 @@ Need help with setup or want a **fully managed hosted version**?
 
 ---
 
-**Made for the Anime Community** ❤️
+**Made for the Anime Community** 
 
 © 2026 ReelFlow • AnimeReel AI
