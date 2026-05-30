@@ -1,29 +1,14 @@
 # ReelFlow-OpenSource
 
+"Want to run this yourself? Follow the technical guide below to set up Codespaces, configure your mobile tunnels, and manage your own IP rotations. Don't want to deal with terminal commands, Termux, and IP bans? > 🚀 Click here to use our fully hosted, 24/7 cloud service where you can automate your accounts with zero setup."
+
 This bot posts anime clips to Instagram using `instagrapi` and supports loading saved sessions from `session.json`.
 
-## Environment setup
 
-1. Copy `.env.example` to `.env`.
-2. Set your Instagram credentials:
-
-```env
-INSTAGRAM_USERNAME=your_username
-INSTAGRAM_PASSWORD=your_password
-```
-
-3. If Instagram blocks your server IP, add your Termux HTTP proxy URL:
-
-```env
-INSTAGRAM_PROXY=http://user:password@proxy_ip:proxy_port
-```
-
-For a Termux proxy, use the HTTP proxy address shown in Termux and include credentials if required.
-
-## Run
-
-```bash
-python bot.py
-```
-
-If login fails due to security checks, open Instagram manually or try the proxy URL again.
+**✨ Features**
+Automatic Content Downloading — Pulls latest anime shorts from YouTube and public sources
+AI-Powered Captions — Generates engaging titles and trending hashtags
+Hourly Auto Posting — Posts Reels every hour
+Smart Storage Management — Auto deletes old files every 22 hours
+Session Management — Reduces ban risk with saved sessions
+Easy Deployment — Works on Oracle Cloud, VPS, or local machine
