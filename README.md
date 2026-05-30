@@ -8,7 +8,7 @@ Built for anime content creators who want consistent growth with minimal effort.
 
 This bot posts anime clips to Instagram using `instagrapi` and supports loading saved sessions from `session.json`.
 
-**✨ Features**
+## ✨ Features
 Automatic Content Downloading — Pulls latest anime shorts from YouTube and public sources
 AI-Powered Captions — Generates engaging titles and trending hashtags
 Hourly Auto Posting — Posts Reels every hour
