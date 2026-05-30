@@ -21,5 +21,5 @@ Built for anime content creators who want consistent growth with minimal effort.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR-USERNAME/anime-ig-reposter-bot.git
+git clone https://github.com/Zcross091/anime-ig-reposter-bot.git
 cd anime-ig-reposter-bot
