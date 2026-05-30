@@ -1,4 +1,4 @@
-# anime-ig-reposter-bot
+# ReelFlow-OpenSource
 
 This bot posts anime clips to Instagram using `instagrapi` and supports loading saved sessions from `session.json`.
 
