@@ -4,18 +4,7 @@ import os
 import logging
 from datetime import datetime
 from instagrapi import Client
-from instagrapi.exceptions import LoginRequired, ChallengeRequired
-
-from config import INSTA_USER, INSTA_PASS, INSTA_PROXY
-from utils.downloader import download_random_clip
-from utils.caption_generator import generate_anime_caption
-import schedule
-import time
-import os
-import logging
-from datetime import datetime
-from instagrapi import Client
-from instagrapi.exceptions import LoginRequired, ChallengeRequired
+from instagrapi.exceptions import LoginRequired, ChallengeRequired, ClientError
 
 from config import INSTA_USER, INSTA_PASS
 from utils.downloader import download_random_clip
@@ -51,20 +40,27 @@ if PROXY_LIST:
 else:
     log.warning("⚠️ No proxies configured — running without proxy rotation.")
 
-# ── Login ─────────────────────────────────────────────────────────────────────
-if os.path.exists(SESSION_FILE):
-    log.info("🔄 Loading saved session...")
-    cl.load_settings(SESSION_FILE)
+# ── Login Logic ───────────────────────────────────────────────────────────────
+def login_user(client):
+    """Handles login logic and securely saves the session token."""
+    if os.path.exists(SESSION_FILE):
+        log.info("🔄 Loading saved session...")
+        client.load_settings(SESSION_FILE)
 
-try:
-    cl.login(INSTA_USER, INSTA_PASS)
-    cl.dump_settings(SESSION_FILE)
-    log.info("✅ Login successful & session saved")
-except ChallengeRequired:
-    log.error("🔒 Instagram Challenge Required! Approve login from your phone app.")
-    exit(1)
-except Exception as e:
-    log.error(f"❌ Login failed: {e}")
+    try:
+        client.login(INSTA_USER, INSTA_PASS)
+        client.dump_settings(SESSION_FILE)
+        log.info("✅ Login successful & session saved")
+        return True
+    except ChallengeRequired:
+        log.error("🔒 Instagram Challenge Required! Approve login from your phone app.")
+        return False
+    except Exception as e:
+        log.error(f"❌ Login failed: {e}")
+        return False
+
+# Initial boot login
+if not login_user(cl):
     exit(1)
 
 # ── Main Job ──────────────────────────────────────────────────────────────────
@@ -73,6 +69,16 @@ def job():
     log.info(f"🚀 Starting post job at {datetime.now().strftime('%H:%M')}")
 
     try:
+        # Quick session check (Revives the session if Instagram dropped it)
+        try:
+            cl.get_timeline_feed()
+        except (LoginRequired, ClientError):
+            log.warning("⚠️ Session expired or invalid. Re-logging in...")
+            if not login_user(cl):
+                _consecutive_failures += 1
+                return
+
+        # Download & Post
         filepath, creator_name = download_random_clip()
 
         if filepath and os.path.exists(filepath):
@@ -108,6 +114,7 @@ schedule.every().day.at("23:00").do(cleanup_downloads)
 
 log.info("🤖 Bot Started | Posts at 08:00, 15:00, 22:00 | Cleanup at 23:00")
 
+# ── Main Loop ────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     while True:
         schedule.run_pending()
