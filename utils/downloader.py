@@ -15,7 +15,7 @@ def download_random_clip(save_dir="downloads", max_retries: int = 3, size_thresh
         selected = random.choice(existing_files)
         filepath = os.path.join(save_dir, selected)
         print(f"✅ Using existing file: {selected}")
-        return filepath, "Unknown Creator"
+        return filepath, "Unknown Creator", "Unknown Title" # Return 3 values
 
     # SECOND: Try an automated YouTube search download with retries and proxy rotation.
     print("📥 No local files found. Attempting YouTube download...")
@@ -56,7 +56,7 @@ def download_random_clip(save_dir="downloads", max_retries: int = 3, size_thresh
             print(f"🌍 Attempt {attempt}: Using proxy {proxy}")
 
         try:
-            with yt_dlp.YoutubeDL(opts) as ydl:
+            with yt_dlp.YoutubeDL(opts) as ydl: # type: ignore
                 # fetch a search result first
                 info = ydl.extract_info(random.choice(queries), download=False)
                 entries = info.get('entries') or []
@@ -66,20 +66,20 @@ def download_random_clip(save_dir="downloads", max_retries: int = 3, size_thresh
                 video = random.choice(entries)
                 video_url = video.get('webpage_url') or f"https://www.youtube.com/watch?v={video.get('id')}"
                 creator = video.get('uploader', 'Unknown Creator')
+                title = video.get('title', 'Unknown Title') # Extract the title string
 
-                print(f"⬇️ Downloading {video_url} (attempt {attempt})")
+                print(f"⬇️ Downloading {video_url} (attempt {attempt}) | Title: {title}")
                 ydl.download([video_url])
 
                 if os.path.exists(filepath) and os.path.getsize(filepath) > size_threshold:
                     print(f"✅ Downloaded: {filepath}")
-                    return filepath, creator
+                    return filepath, creator, title # Return 3 values
                 else:
                     raise RuntimeError(f"Downloaded file missing or below size threshold ({size_threshold} bytes)")
 
         except Exception as e:
             # Provide richer error info and decide whether to retry
             err_type = type(e).__name__
-            # Try to unwrap yt-dlp specific errors for clearer messages
             msg = str(e)
             if isinstance(e, ytd_utils.DownloadError):
                 msg = getattr(e, 'exc_info', msg)
@@ -92,6 +92,6 @@ def download_random_clip(save_dir="downloads", max_retries: int = 3, size_thresh
                 continue
             else:
                 print("🚫 All download attempts failed.")
-                return None, None
+                return None, None, None
 
-    return None, None
+    return None, None, None

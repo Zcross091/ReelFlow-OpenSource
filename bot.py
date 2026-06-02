@@ -8,7 +8,7 @@ from instagrapi.exceptions import LoginRequired, ChallengeRequired, ClientError
 
 from config import INSTA_USER, INSTA_PASS
 from utils.downloader import download_random_clip
-from utils.caption_generator import generate_anime_caption
+from utils.caption_generator import generate_caption_for_series # Swapped generator import
 from utils.poster import post_to_instagram
 from utils.cleaner import cleanup_downloads
 from utils.proxy_rotator import PROXY_LIST, apply_next_proxy
@@ -78,11 +78,15 @@ def job():
                 _consecutive_failures += 1
                 return
 
-        # Download & Post
-        filepath, creator_name = download_random_clip()
+        # Download & Post (Unpacks all 3 return values)
+        filepath, creator_name, video_title = download_random_clip()
 
         if filepath and os.path.exists(filepath):
-            caption = generate_anime_caption(creator_name=creator_name or "Unknown Creator")
+            # Pass the extracted title directly as the series hint
+            caption = generate_caption_for_series(
+                series_hint=video_title or "", 
+                creator_name=creator_name or "Unknown Creator"
+            )
             success = post_to_instagram(filepath, caption, cl)
 
             if success:
