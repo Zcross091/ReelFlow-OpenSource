@@ -44,10 +44,17 @@ Need help with setup or want a **fully managed hosted version**?
 [![Visit Website](https://img.shields.io/badge/Visit_Website-00ff9d?style=for-the-badge&logo=globe&logoColor=black)](https://animereel-ai.gt.tc)
 
 ---
-### Clone
+## Clone (PC/Phones)
 
 ```bash
 git clone https://github.com/Zcross091/ReelFlow-OpenSource.git && cd ReelFlow-OpenSource && chmod +x setup.sh && ./setup.sh
+```
+### For Phones
+Clear the Termux package cache:
+(This deletes the invisible installer .deb files that Termux downloaded but no longer needs).
+
+```bash
+pkg clean
 ```
 
 **Made for the Anime Community** 
