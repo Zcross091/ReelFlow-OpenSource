@@ -25,7 +25,7 @@ $SUDO_CMD $PKG_MANAGER install ffmpeg python rust clang make -y
 echo "🐍 Installing Python dependencies..."
 pip install -r requirements.txt
 
-# 5. Account Configuration (THE FIX)
+# 5. Account Configuration
 echo ""
 echo "========================================"
 echo "      ⚙️  ACCOUNT CONFIGURATION ⚙️      "
@@ -43,7 +43,14 @@ read -p "🌍 (Optional) Enter proxy URL (or press Enter to skip): " INSTA_PROXY
 # Create the .env file automatically
 echo "INSTAGRAM_USERNAME=$INSTA_USER" > .env
 echo "INSTAGRAM_PASSWORD=$INSTA_PASS" >> .env
-echo "INSTAGRAM_PROXIES=$INSTA_PROXY" >> .env
+
+# Check if the proxy variable is NOT empty
+if [ ! -z "$INSTA_PROXY" ]; then
+    echo "INSTAGRAM_PROXIES=$INSTA_PROXY" >> .env
+    echo "🌍 Custom proxy configured securely."
+else
+    echo "📡 No proxy entered. The bot will use your device's default network connection."
+fi
 
 echo "✅ Credentials saved securely to .env!"
 echo ""
