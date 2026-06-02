@@ -44,6 +44,8 @@ Need help with setup or want a **fully managed hosted version**?
 [![Visit Website](https://img.shields.io/badge/Visit_Website-00ff9d?style=for-the-badge&logo=globe&logoColor=black)](https://animereel-ai.gt.tc)
 
 ---
+# Clone
+git clone https://github.com/Zcross091/ReelFlow-OpenSource.git && cd ReelFlow-OpenSource && chmod +x setup.sh && ./setup.sh
 
 **Made for the Anime Community** 
 
