@@ -49,7 +49,24 @@ Need help with setup or want a **fully managed hosted version**?
 ```bash
 git clone https://github.com/Zcross091/ReelFlow-OpenSource.git && cd ReelFlow-OpenSource && chmod +x setup.sh && ./setup.sh
 ```
-### For Phones
+## For Phones
+**IF** the setup fails to automatically do the job, because you're not on a PC, then do this.
+You phone can't run Rust files to Pydantic will crash and Setup.sh won't get to run properly and crash the whole program. To fix this
+**Install the compilers (Run this in your terminal)**
+This might take a few minutes to install as the Rust compiler is a large package.
+```bash
+pkg install rust clang make -y
+```
+**Run the Python installation**
+```bash
+pip install -r requirements.txt
+```
+**Run the bot**
+```bash
+python bot.py
+```
+### If you want to remove from Phone
+Go to app settings and clear data then
 Clear the Termux package cache:
 (This deletes the invisible installer .deb files that Termux downloaded but no longer needs).
 
