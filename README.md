@@ -48,6 +48,7 @@ Need help with setup or want a **fully managed hosted version**?
 
 ```bash
 git clone https://github.com/Zcross091/ReelFlow-OpenSource.git && cd ReelFlow-OpenSource && chmod +x setup.sh && ./setup.sh
+'''
 
 **Made for the Anime Community** 
 
