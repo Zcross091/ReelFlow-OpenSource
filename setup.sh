@@ -18,8 +18,8 @@ echo "🔄 Updating system packages..."
 $SUDO_CMD $PKG_MANAGER update -y && $SUDO_CMD $PKG_MANAGER upgrade -y
 
 # 3. Install Core System Dependencies
-echo "🎥 Installing FFmpeg and Python..."
-$SUDO_CMD $PKG_MANAGER install ffmpeg python -y
+echo "🎥 Installing system tools and compilers..."
+$SUDO_CMD $PKG_MANAGER install ffmpeg python rust clang make -y
 
 # 4. Install Python Libraries
 echo "🐍 Installing Python dependencies..."
